@@ -1,5 +1,12 @@
+import "./App.css";
+import CreateUser from "./components/CreateUser";
+
 const App = () => {
-  return <div>App</div>;
+  return (
+    <>
+      <CreateUser />
+    </>
+  );
 };
 
 export default App;
