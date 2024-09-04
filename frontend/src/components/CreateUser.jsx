@@ -1,17 +1,17 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "axios"; // Axios for REST operations
 
 const CreateUser = () => {
-  const [uData, setUdata] = useState({ uName: "", uPass: "" });
+  // States related to the user
+  const [uName, setUname] = useState("");
+  const [uPass, setUpass] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUdata((prevData) => ({ ...prevData, [name]: value }));
-  };
-
+  // handleSubmit handles form data and sends it to the backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const uData = { uName, uPass };
+      //POST to the backend
       const response = await axios.post("http://localhost:3000/signup", uData);
       console.log("Response: ", response.data);
     } catch (error) {
@@ -33,19 +33,19 @@ const CreateUser = () => {
           <input
             type="text"
             id="uName"
-            value={uData.uName}
+            value={uName}
             name="uName"
             className="border-2 mb-5"
-            onChange={handleChange}
+            onChange={(e) => setUname(e.target.value)}
           />
           <label htmlFor="uPass">Password</label>
           <input
             type="password"
             id="uPass"
-            value={uData.uPass}
+            value={uPass}
             name="uPass"
             className="border-2 mb-5"
-            onChange={handleChange}
+            onChange={(e) => setUpass(e.target.value)}
           />
           <button
             type="submit"
