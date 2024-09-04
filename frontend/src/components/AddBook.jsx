@@ -15,6 +15,9 @@ const AddBook = () => {
       //POST to the backend
       const response = await axios.post("http://localhost:3000/create", bData);
       console.log("Response: ", response.data);
+      setBtitle("");
+      setBauthor("");
+      setBprice(0);
     } catch (error) {
       console.error("Error submitting form: ", error);
     }
@@ -37,6 +40,7 @@ const AddBook = () => {
             value={bTitle}
             name="bTitle"
             className="border-2 mb-5"
+            required
             onChange={(e) => setBtitle(e.target.value)}
           />
           <label htmlFor="bAuthor">Author</label>
@@ -46,6 +50,7 @@ const AddBook = () => {
             value={bAuthor}
             name="bAuthor"
             className="border-2 mb-5"
+            required
             onChange={(e) => setBauthor(e.target.value)}
           />
           <label htmlFor="bPrice">Price</label>
@@ -55,6 +60,7 @@ const AddBook = () => {
             value={bPrice}
             name="bPrice"
             className="border-2 mb-5"
+            required
             onChange={(e) => setBprice(e.target.value)}
           />
           <button
