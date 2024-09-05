@@ -1,7 +1,25 @@
+import { useEffect, useState } from "react";
 import AddBook from "./AddBook";
 import BookLibrary from "./BookLibrary";
+import axios from "axios";
 
 const BookSection = () => {
+  // State to store book information
+  const [books, setBooks] = useState({});
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/books");
+        setBooks(response.data);
+      } catch (error) {
+        console.error("Error fetching books: ", error);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
   return (
     <section className="book-section">
       <header className="flex justify-between mt-3 mx-2 font-primary">
@@ -13,7 +31,7 @@ const BookSection = () => {
       </header>
 
       <AddBook />
-      <BookLibrary />
+      <BookLibrary books={books} />
     </section>
   );
 };

@@ -61,5 +61,15 @@ app.post("/create", async (req, res) => {
   }
 });
 
+// Route to handle GET requests for all books
+app.get("/books", async (req, res) => {
+  try {
+    const books = await BookModel.find();
+    res.json(books);
+    console.log("GET: All Books");
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+})
 // Start the server
 app.listen(PORT, () => console.log(`Listening at port: ${PORT}`));
