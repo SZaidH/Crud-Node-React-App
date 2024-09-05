@@ -5,7 +5,9 @@ import axios from "axios";
 
 const BookSection = () => {
   // State to store book information
-  const [books, setBooks] = useState({});
+  const [books, setBooks] = useState([]);
+  // A key state that assists with rerendering this component
+  const [rekey, setRekey] = useState(false);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -18,7 +20,7 @@ const BookSection = () => {
     };
 
     fetchBooks();
-  }, []);
+  }, [rekey]); // Triggers a render when the key is mutated in the child component AddBook
 
   return (
     <section className="book-section">
@@ -30,7 +32,7 @@ const BookSection = () => {
         </button>
       </header>
 
-      <AddBook />
+      <AddBook setRekey={setRekey} />
       <BookLibrary books={books} />
     </section>
   );

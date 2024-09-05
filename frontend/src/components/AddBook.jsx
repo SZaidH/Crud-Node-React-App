@@ -1,11 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 
-const AddBook = () => {
+const AddBook = ({ setRekey }) => {
   // States related to the Book
   const [bTitle, setBtitle] = useState("");
   const [bAuthor, setBauthor] = useState("");
-  const [bPrice, setBprice] = useState();
+  const [bPrice, setBprice] = useState("");
 
   // handleSubmit handles form data and sends it to the backend
   const handleSubmit = async (e) => {
@@ -18,6 +18,7 @@ const AddBook = () => {
       setBtitle("");
       setBauthor("");
       setBprice(0);
+      setRekey((prev) => !prev); // Triggers a render in the parent component
     } catch (error) {
       console.error("Error submitting form: ", error);
     }

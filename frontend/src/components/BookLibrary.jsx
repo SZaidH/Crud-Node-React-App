@@ -35,7 +35,7 @@ const BookLibrary = ({ books }) => {
 
             {books.length > 0
               ? books.map((book) => (
-                  <tr key={book.id}>
+                  <tr key={book._id}>
                     <td className="border border-gray-300 px-4 py-2">
                       {book.bTitle}
                     </td>
