@@ -64,12 +64,39 @@ app.post("/create", async (req, res) => {
 // Route to handle GET requests for all books
 app.get("/books", async (req, res) => {
   try {
-    const books = await BookModel.find();
+    const books = await BookModel.find().sort({ _id: -1 });
     res.json(books);
     console.log("GET: All Books");
   } catch (error) {
     console.error("Error: ", error);
   }
-})
+});
+
+// Route to fetch the Book details and update it
+app.put("/update/:id", async (req, res) => {
+  const { id } = req.params;
+  const { bTitle, bAuthor, bPrice } = req.body;
+
+  try {
+    const updatedBook = await BookModel.findByIdAndUpdate(
+      id,
+      { bTitle, bAuthor, bPrice },
+      { new: true }
+    );
+
+    if (!updatedBook) {
+      return res
+        .status(404)
+        .json({ status: "Error", message: "Book not found" });
+    }
+
+    res
+      .status(200)
+      .json({ status: "Success", message: "Book updated", updatedBook });
+  } catch (error) {
+    console.log("Error updating book: ", error);
+    res.status(500).json({ status: "Error", message: "Internal Server Error" });
+  }
+});
 // Start the server
 app.listen(PORT, () => console.log(`Listening at port: ${PORT}`));

@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import AddBook from "./AddBook";
 import BookLibrary from "./BookLibrary";
 import axios from "axios";
+import UpdateBook from "./UpdateBook";
 
 const BookSection = () => {
   // State to store book information
   const [books, setBooks] = useState([]);
   // A key state that assists with rerendering this component
   const [rekey, setRekey] = useState(false);
+  // State for handling book update
+  const [bDetails, setBDetails] = useState({});
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -32,8 +35,9 @@ const BookSection = () => {
         </button>
       </header>
 
-      <AddBook setRekey={setRekey} />
-      <BookLibrary books={books} />
+      {/* <AddBook setRekey={setRekey} /> */}
+      <UpdateBook bDetails={bDetails} setRekey={setRekey} />
+      <BookLibrary books={books} setBDetails={setBDetails} />
     </section>
   );
 };

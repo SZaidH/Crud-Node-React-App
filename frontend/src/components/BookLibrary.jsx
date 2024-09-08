@@ -1,5 +1,14 @@
-const BookLibrary = ({ books }) => {
-  console.log("Library: ", books);
+const BookLibrary = ({ books, setBDetails }) => {
+  // Handles the Book Details when the user clicks on the Edit button. The data is sent to the parent
+  const handleEditClick = (book) => {
+    setBDetails({
+      _id: book._id,
+      bTitle: book.bTitle,
+      bAuthor: book.bAuthor,
+      bPrice: book.bPrice,
+    });
+  };
+
   return (
     <div className="flex items-center justify-center ">
       <div className="border-2 w-10/12 2xl:w-5/12 p-3 my-8 rounded-lg bg-white">
@@ -17,22 +26,6 @@ const BookLibrary = ({ books }) => {
           </thead>
 
           <tbody>
-            <tr>
-              <td className="border border-gray-300 px-4 py-2">East of Eden</td>
-              <td className="border border-gray-300 px-4 py-2">
-                John Steinbeck
-              </td>
-              <td className="border border-gray-300 px-4 py-2">56</td>
-              <td className="border border-gray-300 px-4 py-2">
-                <button className="bg-emerald-800 p-2 text-white mr-4 rounded-md">
-                  Edit
-                </button>
-                <button className="bg-red-800 p-2 text-white rounded-md">
-                  Delete
-                </button>
-              </td>
-            </tr>
-
             {books.length > 0
               ? books.map((book) => (
                   <tr key={book._id}>
@@ -46,7 +39,10 @@ const BookLibrary = ({ books }) => {
                       {book.bPrice}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
-                      <button className="bg-emerald-800 p-2 text-white mr-4 rounded-md">
+                      <button
+                        className="bg-emerald-800 p-2 text-white mr-4 rounded-md"
+                        onClick={() => handleEditClick(book)}
+                      >
                         Edit
                       </button>
                       <button className="bg-red-800 p-2 text-white rounded-md">
