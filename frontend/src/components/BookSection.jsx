@@ -37,7 +37,11 @@ const BookSection = () => {
 
       {/* <AddBook setRekey={setRekey} /> */}
       <UpdateBook bDetails={bDetails} setRekey={setRekey} />
-      <BookLibrary books={books} setBDetails={setBDetails} />
+      <BookLibrary
+        books={books}
+        setBDetails={setBDetails}
+        setRekey={setRekey}
+      />
     </section>
   );
 };

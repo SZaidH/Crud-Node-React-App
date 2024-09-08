@@ -1,4 +1,5 @@
-const BookLibrary = ({ books, setBDetails }) => {
+import axios from "axios";
+const BookLibrary = ({ books, setBDetails, setRekey }) => {
   // Handles the Book Details when the user clicks on the Edit button. The data is sent to the parent
   const handleEditClick = (book) => {
     setBDetails({
@@ -9,6 +10,19 @@ const BookLibrary = ({ books, setBDetails }) => {
     });
   };
 
+  // Handles Book deletion when the user clicks on the Delete button.
+  const handleDeleteClick = async (book) => {
+    const bookID = book._id;
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/delete/${bookID}`
+      );
+      console.log("Response: ", response.data);
+      setRekey((prev) => !prev);
+    } catch (error) {
+      console.error("Problem sending data to the server: ", error);
+    }
+  };
   return (
     <div className="flex items-center justify-center ">
       <div className="border-2 w-10/12 2xl:w-5/12 p-3 my-8 rounded-lg bg-white">
@@ -45,7 +59,10 @@ const BookLibrary = ({ books, setBDetails }) => {
                       >
                         Edit
                       </button>
-                      <button className="bg-red-800 p-2 text-white rounded-md">
+                      <button
+                        className="bg-red-800 p-2 text-white rounded-md"
+                        onClick={() => handleDeleteClick(book)}
+                      >
                         Delete
                       </button>
                     </td>

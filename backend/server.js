@@ -98,5 +98,28 @@ app.put("/update/:id", async (req, res) => {
     res.status(500).json({ status: "Error", message: "Internal Server Error" });
   }
 });
+
+app.delete("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+
+  // Check if the ID is valid (assuming you use MongoDB)
+  if (!id) {
+    return res.status(404).json({ status: "Error", message: "Book ID not found" });
+  }
+
+  try {
+    const deletedBook = await BookModel.findByIdAndDelete(id);
+
+    if (!deletedBook) {
+      return res.status(404).json({ status: "Error", message: "Book not found" });
+    }
+
+    res.status(200).json({ status: "Success", message: "Book deleted", deletedBook });
+  } catch (error) {
+    console.log("Error deleting book: ", error);
+    res.status(500).json({ status: "Error", message: "Internal Server Error" });
+  }
+});
+
 // Start the server
 app.listen(PORT, () => console.log(`Listening at port: ${PORT}`));
