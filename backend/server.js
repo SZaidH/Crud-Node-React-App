@@ -54,7 +54,7 @@ app.post("/create", async (req, res) => {
     // Save the user to the database
     await newBook.save();
 
-    res.status(200).json({ status: "Success", message: "User Created" });
+    res.status(200).json({ status: "Success", message: "Book Created" });
   } catch (error) {
     console.error("Error during signup:", error);
     res.status(500).json({ status: "Error", message: "Internal Server Error" });

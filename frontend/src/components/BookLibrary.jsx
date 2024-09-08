@@ -1,5 +1,5 @@
 import axios from "axios";
-const BookLibrary = ({ books, setBDetails, setRekey }) => {
+const BookLibrary = ({ books, setBDetails, setRekey, setComp }) => {
   // Handles the Book Details when the user clicks on the Edit button. The data is sent to the parent
   const handleEditClick = (book) => {
     setBDetails({
@@ -8,6 +8,8 @@ const BookLibrary = ({ books, setBDetails, setRekey }) => {
       bAuthor: book.bAuthor,
       bPrice: book.bPrice,
     });
+
+    setComp("Update");
   };
 
   // Handles Book deletion when the user clicks on the Delete button.

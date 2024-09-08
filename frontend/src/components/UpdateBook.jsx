@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const UpdateBook = ({ bDetails, setRekey }) => {
+const UpdateBook = ({ bDetails, setRekey, setComp }) => {
   const [bTitle, setBtitle] = useState("");
   const [bAuthor, setBauthor] = useState("");
   const [bPrice, setBprice] = useState("");
@@ -28,6 +28,7 @@ const UpdateBook = ({ bDetails, setRekey }) => {
       setBauthor("");
       setBprice("");
       setRekey((prev) => !prev); // Triggers a render in the parent component
+      setComp("Add");
     } catch (error) {
       console.error("Error submitting form: ", error);
     }

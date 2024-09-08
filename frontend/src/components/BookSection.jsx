@@ -11,6 +11,8 @@ const BookSection = () => {
   const [rekey, setRekey] = useState(false);
   // State for handling book update
   const [bDetails, setBDetails] = useState({});
+  // State for handling the required component
+  const [comp, setComp] = useState("Add");
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -35,11 +37,15 @@ const BookSection = () => {
         </button>
       </header>
 
-      {/* <AddBook setRekey={setRekey} /> */}
-      <UpdateBook bDetails={bDetails} setRekey={setRekey} />
+      {comp === "Add" ? (
+        <AddBook setRekey={setRekey} />
+      ) : (
+        <UpdateBook bDetails={bDetails} setComp={setComp} setRekey={setRekey} />
+      )}
       <BookLibrary
         books={books}
         setBDetails={setBDetails}
+        setComp={setComp}
         setRekey={setRekey}
       />
     </section>
