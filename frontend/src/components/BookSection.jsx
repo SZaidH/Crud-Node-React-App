@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import AddBook from "./AddBook";
 import BookLibrary from "./BookLibrary";
-import axios from "axios";
 import UpdateBook from "./UpdateBook";
-import { Link } from "react-router-dom";
 
 const BookSection = () => {
   // State to store book information
@@ -14,6 +15,25 @@ const BookSection = () => {
   const [bDetails, setBDetails] = useState({});
   // State for handling the required component
   const [comp, setComp] = useState("Add");
+  // State to store JWT
+  const [token, setToken] = useState(null);
+  // State to store username from JWT
+  const [userName, setUserName] = useState("");
+
+  // Fetching the user token from local storage
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+      try {
+        // Decoding the token to extract the username
+        const decodedToken = jwtDecode(storedToken);
+        setUserName(decodedToken.uName);
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -33,18 +53,28 @@ const BookSection = () => {
       <header className="flex justify-between mt-3 mx-2 font-primary">
         <div className="">{/* Empty space for enabling 3 Column layout */}</div>
         <h2 className=" text-primary text-3xl">Jolly Book Club</h2>
-        <Link to="/uSignup">
-          <button className="bg-[#ed6a5a] p-2 rounded-md text-white ">
-            Login
-          </button>
-        </Link>
+        {!token ? (
+          <Link to="/uSignup">
+            <button className="bg-[#ed6a5a] p-2 rounded-md text-white">
+              Login
+            </button>
+          </Link>
+        ) : (
+          <h1>Welcome, {userName}</h1>
+        )}
       </header>
 
-      {comp === "Add" ? (
-        <AddBook setRekey={setRekey} />
-      ) : (
-        <UpdateBook bDetails={bDetails} setComp={setComp} setRekey={setRekey} />
-      )}
+      {token ? (
+        comp === "Add" ? (
+          <AddBook setRekey={setRekey} />
+        ) : (
+          <UpdateBook
+            bDetails={bDetails}
+            setComp={setComp}
+            setRekey={setRekey}
+          />
+        )
+      ) : null}
       <BookLibrary
         books={books}
         setBDetails={setBDetails}

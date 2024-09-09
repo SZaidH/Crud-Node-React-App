@@ -3,10 +3,12 @@ const app = express();
 const cors = require("cors"); // Enables interaction with the frontend
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt"); // For hashing passwords
+const jwt = require("jsonwebtoken");
 const connectDB = require("./db");
 const UserModel = require("./models/User");
 const BookModel = require("./models/Book");
-const PORT = 3000;
+const PORT = process.env.EXPRESS_PORT || 3000;
+const JWT_SECRET = process.env.JWT_SECRET
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -31,12 +33,34 @@ app.post("/signup", async (req, res) => {
     // Save the user to the database
     await newUser.save();
 
-    res.status(200).json({ status: "Success", message: "User Created" });
+    // Generate JWT token after successful signup
+    const token = jwt.sign({ id: newUser._id, uName: newUser.uName }, JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({ status: "Success", message: "User Created", token });
   } catch (error) {
     console.error("Error during signup:", error);
     res.status(500).json({ status: "Error", message: "Internal Server Error" });
   }
 });
+
+// Route to handle User login
+app.post("/login", async (req, res) => {
+  const { uName, uPass } = req.body;
+
+  try {
+    const user = await UserModel.findOne({ uName });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    const isMatch = await bcrypt.compare(uPass, user.uPass);
+    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+
+    // JWT token generated with the secret key from .env
+    const token = jwt.sign({ id: user._id, uName: user.uName }, JWT_SECRET, { expiresIn: '1h' });
+    res.status(200).json({ message: 'Login successful', token });
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+})
 
 // Route to handle Adding Books
 app.post("/create", async (req, res) => {

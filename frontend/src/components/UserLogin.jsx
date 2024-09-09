@@ -1,22 +1,32 @@
 import { useState } from "react";
 import axios from "axios"; // Axios for REST operations
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserLogin = () => {
   // States related to the user
   const [uName, setUname] = useState("");
   const [uPass, setUpass] = useState("");
+  // State for errors
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   // handleSubmit handles form data and sends it to the backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const uData = { uName, uPass };
-      //POST to the backend
-      const response = await axios.post("http://localhost:3000/signup", uData);
-      console.log("Response: ", response.data);
+      // POST to the backend
+      const response = await axios.post("http://localhost:3000/login", uData);
+
+      if (response.status === 200) console.log("Login successful");
+
+      // Saving the JWT to localStorage
+      localStorage.setItem("token", response.data.token);
+      navigate("/");
     } catch (error) {
       console.error("Error submitting form: ", error);
+      setError("Invalid password, please try again");
     }
   };
 
@@ -26,6 +36,7 @@ const UserLogin = () => {
         <h1 className="font-bold font-primary text-3xl mb-5 text-primary">
           User Login
         </h1>
+        {error && <p className="text-red-500 mb-5">{error}</p>}
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-center text-xl font-secondary font-semibold text-secondary"
@@ -57,7 +68,7 @@ const UserLogin = () => {
         </form>
         <hr className="my-5" />
         <p className="font-secondary">
-          Not a User? Please register Login
+          Not a User? Please register
           <Link to="/uSignup" className="text-[#ed6a5a] font-semibold">
             {" "}
             here
