@@ -3,6 +3,7 @@ import AddBook from "./AddBook";
 import BookLibrary from "./BookLibrary";
 import axios from "axios";
 import UpdateBook from "./UpdateBook";
+import { Link } from "react-router-dom";
 
 const BookSection = () => {
   // State to store book information
@@ -32,9 +33,11 @@ const BookSection = () => {
       <header className="flex justify-between mt-3 mx-2 font-primary">
         <div className="">{/* Empty space for enabling 3 Column layout */}</div>
         <h2 className=" text-primary text-3xl">Jolly Book Club</h2>
-        <button className="bg-[#ed6a5a] p-2 rounded-md text-white ">
-          Login
-        </button>
+        <Link to="/uSignup">
+          <button className="bg-[#ed6a5a] p-2 rounded-md text-white ">
+            Login
+          </button>
+        </Link>
       </header>
 
       {comp === "Add" ? (

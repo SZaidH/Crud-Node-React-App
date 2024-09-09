@@ -2,29 +2,29 @@ import { useState } from "react";
 import axios from "axios"; // Axios for REST operations
 import { Link } from "react-router-dom";
 
-const CreateUser = () => {
+const UserLogin = () => {
   // States related to the user
   const [uName, setUname] = useState("");
   const [uPass, setUpass] = useState("");
 
   // handleSubmit handles form data and sends it to the backend
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const uData = { uName, uPass };
-  //     //POST to the backend
-  //     const response = await axios.post("http://localhost:3000/signup", uData);
-  //     console.log("Response: ", response.data);
-  //   } catch (error) {
-  //     console.error("Error submitting form: ", error);
-  //   }
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const uData = { uName, uPass };
+      //POST to the backend
+      const response = await axios.post("http://localhost:3000/signup", uData);
+      console.log("Response: ", response.data);
+    } catch (error) {
+      console.error("Error submitting form: ", error);
+    }
+  };
 
   return (
     <main className="flex items-center justify-center h-screen">
       <div className="create-user border-2 w-10/12 2xl:w-5/12 p-3 rounded-lg bg-white">
         <h1 className="font-bold font-primary text-3xl mb-5 text-primary">
-          User Registration
+          User Login
         </h1>
         <form
           onSubmit={handleSubmit}
@@ -52,13 +52,14 @@ const CreateUser = () => {
             type="submit"
             className="w-2/4 md:w-2/12 mx-auto md:mx-0 rounded-lg text-white bg-[#ed6a5a] hover:bg-black p-2"
           >
-            Sign Up
+            Login
           </button>
         </form>
         <hr className="my-5" />
         <p className="font-secondary">
-          Already a User? Please Login{" "}
-          <Link to="/uLogin" className="text-[#ed6a5a] font-semibold">
+          Not a User? Please register Login
+          <Link to="/uSignup" className="text-[#ed6a5a] font-semibold">
+            {" "}
             here
           </Link>
         </p>
@@ -67,4 +68,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default UserLogin;
