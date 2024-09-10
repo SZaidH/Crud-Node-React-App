@@ -9,14 +9,12 @@
 
 :root {
   --primary-fcolor: #ed6a5a;
-  --secondary-fcolor: #08090a;
+  --secondary-fcolor: #003e1f;
   --primary-font: "Alata";
   --secondary-font: "Montserrat";
   --default-font: sans-serif;
 }
 
 body {
-  background: linear-gradient(to top, #dfe9f3 0%, white 100%);
-  background-repeat: no-repeat;
-  min-height: 100vh;
+  background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }

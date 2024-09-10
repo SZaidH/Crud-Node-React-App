@@ -55,17 +55,19 @@ const BookSection = () => {
 
   return (
     <section className="book-section">
-      <header className="flex justify-between mt-3 mx-2 font-primary">
-        <div className="">{/* Empty space for enabling 3 Column layout */}</div>
-        <h2 className=" text-primary text-3xl">Jolly Book Club</h2>
+      <header className="flex flex-col text-center align-middle mt-3 mx-2 font-primary">
+        <h1 className=" text-primary text-3xl mb-3">Jolly Book Club</h1>
         {!token ? (
-          <Link to="/uLogin">
-            <button className="bg-[#ed6a5a] p-2 rounded-md text-white">
-              Login
-            </button>
-          </Link>
+          <h2 className="font-secondary text-secondary font-semibold">
+            Please Login to add books to the Jolly Library{" "}
+            <Link to="/uLogin">
+              <button className="bg-[#ed6a5a] p-2 rounded-md text-white">
+                Login
+              </button>
+            </Link>
+          </h2>
         ) : (
-          <h1>
+          <h2 className="font-secondary text-secondary font-semibold">
             Welcome, {userName}{" "}
             <button
               className="bg-[#ed6a5a] p-2 rounded-md text-white"
@@ -73,7 +75,7 @@ const BookSection = () => {
             >
               Logout
             </button>
-          </h1>
+          </h2>
         )}
       </header>
 

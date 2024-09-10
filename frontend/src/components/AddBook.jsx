@@ -26,7 +26,7 @@ const AddBook = ({ setRekey }) => {
 
   return (
     <div className="flex items-center justify-center ">
-      <div className="border-2 w-10/12 2xl:w-5/12 p-3 my-8 rounded-lg bg-white">
+      <div className="border-2 w-10/12 2xl:w-3/5 p-3 my-8 rounded-lg bg-white">
         <h1 className="font-primary text-xl mb-5 text-primary">
           Add a new Book to the Club
         </h1>
@@ -40,7 +40,7 @@ const AddBook = ({ setRekey }) => {
             id="bTitle"
             value={bTitle}
             name="bTitle"
-            className="border-2 mb-5"
+            className="border-2 mb-5 p-2 text-black"
             required
             onChange={(e) => setBtitle(e.target.value)}
           />
@@ -50,7 +50,7 @@ const AddBook = ({ setRekey }) => {
             id="bAuthor"
             value={bAuthor}
             name="bAuthor"
-            className="border-2 mb-5"
+            className="border-2 mb-5 p-2 text-black"
             required
             onChange={(e) => setBauthor(e.target.value)}
           />
@@ -60,13 +60,13 @@ const AddBook = ({ setRekey }) => {
             id="bPrice"
             value={bPrice}
             name="bPrice"
-            className="border-2 mb-5"
+            className="border-2 mb-5 p-2 text-black"
             required
             onChange={(e) => setBprice(e.target.value)}
           />
           <button
             type="submit"
-            className=" md:w-2/12 mx-auto md:mx-0 rounded-lg text-white bg-[#ed6a5a] hover:bg-black p-2"
+            className=" md:w-2/12 mx-auto md:mx-0 rounded-lg text-white bg-[#003E1F] hover:bg-black p-2"
           >
             Add Book
           </button>

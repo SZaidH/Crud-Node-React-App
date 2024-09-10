@@ -38,7 +38,7 @@ const CreateUser = () => {
         {error && <p className="text-red-500 mb-5">{error}</p>}
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-center text-xl font-secondary font-semibold text-secondary"
+          className="flex flex-col justify-center text-xl font-secondary text-secondary"
         >
           <label htmlFor="fname">Username</label>
           <input
