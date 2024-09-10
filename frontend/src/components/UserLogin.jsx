@@ -47,7 +47,7 @@ const UserLogin = () => {
             id="uName"
             value={uName}
             name="uName"
-            className="border-2 mb-5"
+            className="border-2 mb-5 p-2 text-black"
             onChange={(e) => setUname(e.target.value)}
           />
           <label htmlFor="uPass">Password</label>
@@ -56,7 +56,7 @@ const UserLogin = () => {
             id="uPass"
             value={uPass}
             name="uPass"
-            className="border-2 mb-5"
+            className="border-2 mb-5 p-2 text-black"
             onChange={(e) => setUpass(e.target.value)}
           />
           <button

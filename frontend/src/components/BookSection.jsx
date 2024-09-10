@@ -55,8 +55,9 @@ const BookSection = () => {
 
   return (
     <section className="book-section">
-      <header className="flex flex-col text-center align-middle mt-3 mx-2 font-primary">
-        <h1 className=" text-primary text-3xl mb-3">Jolly Book Club</h1>
+      <header className="flex flex-col items-center justify-center mt-3 mx-2 font-primary">
+        <img src="../../public/logo.png" className="w-40 mb-5" alt="Logo" />
+        {/* Logo Credit: www.freepik.com */}
         {!token ? (
           <h2 className="font-secondary text-secondary font-semibold">
             Please Login to add books to the Jolly Library{" "}

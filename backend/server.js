@@ -1,15 +1,15 @@
 const express = require("express");
-const app = express();
 const cors = require("cors"); // Enables interaction with the frontend
-const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt"); // For hashing passwords
-const jwt = require("jsonwebtoken");
 const connectDB = require("./db");
+const bcrypt = require("bcrypt"); // For hashing passwords
+const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
 const UserModel = require("./models/User");
 const BookModel = require("./models/Book");
 const PORT = process.env.EXPRESS_PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET
 
+const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -19,7 +19,6 @@ connectDB();
 // Route to handle user registration
 app.post("/signup", async (req, res) => {
   const { uName, uPass } = req.body;
-  console.log("Received Data: ", uName, uPass);
   try {
     // Hash the password (using bcrypt)
     const hash = await bcrypt.hash(uPass, 10);
@@ -35,7 +34,7 @@ app.post("/signup", async (req, res) => {
 
     // Generate JWT token after successful signup
     const token = jwt.sign({ id: newUser._id, uName: newUser.uName }, JWT_SECRET, { expiresIn: '1h' });
-
+    console.log("POST: User Created");
     res.status(200).json({ status: "Success", message: "User Created", token });
   } catch (error) {
     console.error("Error during signup:", error);
@@ -55,6 +54,7 @@ app.post("/login", async (req, res) => {
 
     // JWT token generated with the secret key from .env
     const token = jwt.sign({ id: user._id, uName: user.uName }, JWT_SECRET, { expiresIn: '1h' });
+    console.log("POST: User Login");
     res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
     console.error('Error during login:', error);
@@ -77,7 +77,7 @@ app.post("/create", async (req, res) => {
 
     // Save the user to the database
     await newBook.save();
-
+    console.log("POST: New Book");
     res.status(200).json({ status: "Success", message: "Book Created" });
   } catch (error) {
     console.error("Error during signup:", error);
@@ -113,7 +113,7 @@ app.put("/update/:id", async (req, res) => {
         .status(404)
         .json({ status: "Error", message: "Book not found" });
     }
-
+    console.log("PUT: Book Update");
     res
       .status(200)
       .json({ status: "Success", message: "Book updated", updatedBook });
@@ -137,7 +137,7 @@ app.delete("/delete/:id", async (req, res) => {
     if (!deletedBook) {
       return res.status(404).json({ status: "Error", message: "Book not found" });
     }
-
+    console.log("DELETE: Book Delete");
     res.status(200).json({ status: "Success", message: "Book deleted", deletedBook });
   } catch (error) {
     console.log("Error deleting book: ", error);
