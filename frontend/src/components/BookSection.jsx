@@ -48,19 +48,32 @@ const BookSection = () => {
     fetchBooks();
   }, [rekey]); // Triggers a render when the key is mutated in the child component AddBook
 
+  const logOut = () => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) setToken(null);
+  };
+
   return (
     <section className="book-section">
       <header className="flex justify-between mt-3 mx-2 font-primary">
         <div className="">{/* Empty space for enabling 3 Column layout */}</div>
         <h2 className=" text-primary text-3xl">Jolly Book Club</h2>
         {!token ? (
-          <Link to="/uSignup">
+          <Link to="/uLogin">
             <button className="bg-[#ed6a5a] p-2 rounded-md text-white">
               Login
             </button>
           </Link>
         ) : (
-          <h1>Welcome, {userName}</h1>
+          <h1>
+            Welcome, {userName}{" "}
+            <button
+              className="bg-[#ed6a5a] p-2 rounded-md text-white"
+              onClick={logOut}
+            >
+              Logout
+            </button>
+          </h1>
         )}
       </header>
 
